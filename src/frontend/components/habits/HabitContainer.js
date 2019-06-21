@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /**
  * ************************************
  *
@@ -21,7 +22,6 @@ import Chat from './Chat';
 class HabitContainer extends Component {
   constructor() {
     super();
-    // this.state = {};
   }
 
   render() {

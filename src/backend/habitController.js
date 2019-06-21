@@ -57,6 +57,18 @@ const habitController = {
     buildLogs(userId, habitId, dbInfo.rows[0].start_date, dbInfo.rows[0].end_date);
     next();
   },
+<<<<<<< HEAD
+
+  // function that creates log with day, userid, habitid, and checked boolean
+  createLog(req, res, next) {
+    const { day, userId, habitId, checked } = req.body;
+    // query string to insert log table
+    Habit.query(
+      `INSERT INTO log(day, checked, user_id, habit_id) VALUES ('${day}','${checked}','${userId}', '${habitId}');`,
+      (err, result) => {
+        if (err) next(err);
+        res.locals.day = result;
+=======
   // function that creates user
   createUser(req, res, next) {
     const { username } = req.body;
@@ -66,10 +78,35 @@ const habitController = {
       `INSERT INTO app_user(username, password) VALUES ('${username}', '${password}');`,
       err => {
         if (err) throw err;
+>>>>>>> 23d37feae9a672a4263def1f857a8f2238386db7
         return next();
       }
     );
   },
+<<<<<<< HEAD
+
+  sendMessage(req, res, next) {
+    const { text, username, habitIndex, userId } = req.body;
+    const { habitId } = req.params;
+    console.log(req.params);
+    Habit.query(
+      `INSERT INTO chat(habit_id, user_id, text) VALUES ('${habitId}', '${userId}', '${text}') returning *;`,
+      (err, result) => {
+        // res.locals.message = result.rows[0];
+        if (err) console.log(err);
+        console.log(result);
+        return next();
+      }
+    );
+  },
+
+  getMessages(req, res, next) {
+    const { habitId } = req.params;
+    Habit.query(`SELECT * FROM chat WHERE habit_id = '${habitId}';`, (err, result) => {
+      console.log(result);
+    });
+  },
+=======
   loginUser(req, res, next) {
     const { username, password } = req.body;
     db.query(
@@ -104,6 +141,7 @@ const buildLogs = async (userId, habitId, startDate, endDate) => {
   } while (currentDate.toDateString() !== endingDate.toDateString());
   await db.query(`INSERT INTO logs(date, user_id, habit_id) VALUES 
   ('${endingDate.toDateString()}', '${userId}', '${habitId}')`);
+>>>>>>> 23d37feae9a672a4263def1f857a8f2238386db7
 };
 
 module.exports = habitController;
